@@ -14,6 +14,9 @@ class WindowCaseInfo extends Window_Base {
     var rect = new Rectangle(x, y, width, height);
     super(rect);
     #end
+    #if ChaosMode
+    this.setBackgroundType(2);
+    #end
   }
 
   public function showCaseFileText(text: String) {

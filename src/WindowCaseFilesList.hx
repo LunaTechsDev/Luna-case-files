@@ -48,6 +48,10 @@ class WindowCaseFilesList extends Window_Selectable {
     var rect = this.itemRect(index);
     #end
     var caseFile = this._caseFiles[index];
+    #if ChaosMode
+    // Offset text due to window backdrop
+    rect.x += 20;
+    #end
     #if compileMV
     this.drawTextEx(caseFile.name, rect.x, rect.y);
     #else

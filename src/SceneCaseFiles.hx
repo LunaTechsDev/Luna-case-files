@@ -46,6 +46,10 @@ class SceneCaseFiles extends Scene_MenuBase {
     this.createAllWindows();
   }
 
+  #if ChaosMode
+  public override function createButtons() {}
+  #end
+
   public override function createBackground() {
     // super.createBackground();
     this._backgroundSprite = new Sprite();
@@ -66,6 +70,10 @@ class SceneCaseFiles extends Scene_MenuBase {
     #else
     var helpRect = new Rectangle(0, 0, Graphics.boxWidth, 75);
     this._caseFileHelpWindow = new Window_Help(helpRect);
+    #end
+    #if ChaosMode
+    this._caseFileHelpWindow.contents.textColor = 'black';
+    this._caseFileHelpWindow.setBackgroundType(2);
     #end
     this._caseFileHelpWindow.setText('Case Files');
     this.addWindow(this._caseFileHelpWindow);
@@ -89,6 +97,9 @@ class SceneCaseFiles extends Scene_MenuBase {
     this._caseFilesListWindow.setCaseFiles(this._caseFileList);
     this._caseFilesListWindow.setHandler('ok', this.caseFileListOkHandler);
     this.addWindow(this._caseFilesListWindow);
+    #if ChaosMode
+    this._caseFilesListWindow.setBackgroundType(2);
+    #end
     this._caseFilesListWindow.select(0);
     this._caseFilesListWindow.activate();
     this._caseFilesListWindow.refresh();

@@ -24,6 +24,8 @@
 # Note you can call an hxml file inside an hxml file for build purposes.
 # For Compiling Separate JavaScript Files
 
+
+
 --macro macros.MacroTools.includeJsLib("./src/Params.js")
 
 -main Main
@@ -31,6 +33,10 @@
 
 --next
 -js dist/Luna_CaseFiles.js
+
+--next
+-D ChaosMode
+-js dist/Luna_CaseFilesChaosMode.js
 
 --next 
 -D compileMV

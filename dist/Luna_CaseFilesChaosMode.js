@@ -1,5 +1,5 @@
 //=============================================================================
-// Luna_CaseFilesMV.js
+// Luna_CaseFilesChaosMode.js
 //=============================================================================
 //=============================================================================
 // Build Date: 2020-10-24 16:15:26
@@ -142,6 +142,8 @@ class SceneCaseFiles extends Scene_MenuBase {
 		super.create()
 		this.createAllWindows()
 	}
+	createButtons() {
+	}
 	createBackground() {
 		this._backgroundSprite = new Sprite()
 		this._backgroundSprite.bitmap = ImageManager.loadPicture(LunaCaseFiles.Params.backgroundImageName)
@@ -154,7 +156,10 @@ class SceneCaseFiles extends Scene_MenuBase {
 		this.createCaseFileListWindow()
 	}
 	createCaseFileHelpWindow() {
-		this._caseFileHelpWindow = new Window_Help(1)
+		let helpRect = new Rectangle(0,0,Graphics.boxWidth,75)
+		this._caseFileHelpWindow = new Window_Help(helpRect)
+		this._caseFileHelpWindow.contents.textColor = "black"
+		this._caseFileHelpWindow.setBackgroundType(2)
 		this._caseFileHelpWindow.setText("Case Files")
 		this.addWindow(this._caseFileHelpWindow)
 	}
@@ -170,6 +175,7 @@ class SceneCaseFiles extends Scene_MenuBase {
 		this._caseFilesListWindow.setCaseFiles(this._caseFileList)
 		this._caseFilesListWindow.setHandler("ok",$bind(this,this.caseFileListOkHandler))
 		this.addWindow(this._caseFilesListWindow)
+		this._caseFilesListWindow.setBackgroundType(2)
 		this._caseFilesListWindow.select(0)
 		this._caseFilesListWindow.activate()
 		this._caseFilesListWindow.refresh()
@@ -196,7 +202,8 @@ class SceneCaseFiles extends Scene_MenuBase {
 SceneCaseFiles.__name__ = true
 class WindowCaseFilesList extends Window_Selectable {
 	constructor(x,y,width,height) {
-		super(x,y,width,height);
+		let rect = new Rectangle(x,y,width,height)
+		super(rect);
 		this._caseFiles = []
 	}
 	maxItems() {
@@ -216,15 +223,18 @@ class WindowCaseFilesList extends Window_Selectable {
 		this.refresh()
 	}
 	drawItem(index) {
-		let rect = this.itemRectForText(index)
+		let rect = this.itemRect(index)
 		let caseFile = this._caseFiles[index]
-		this.drawTextEx(caseFile.name,rect.x,rect.y)
+		rect.x += 20;
+		this.drawTextEx(caseFile.name,rect.x,rect.y,rect.width)
 	}
 }
 WindowCaseFilesList.__name__ = true
 class WindowCaseInfo extends Window_Base {
 	constructor(x,y,width,height) {
-		super(x,y,width,height);
+		let rect = new Rectangle(x,y,width,height)
+		super(rect);
+		this.setBackgroundType(2)
 	}
 	showCaseFileText(text) {
 		this._caseText = text
@@ -234,24 +244,25 @@ class WindowCaseInfo extends Window_Base {
 		this._caseText = ""
 		this.refresh()
 	}
-	drawTextEx(text,x,y) {
-		if(text) {
-			let textState = { index : 0, x : x, y : y, left : x, text : "", height : 0}
-			textState.text = this.convertEscapeCharacters(text)
-			textState.height = this.calcTextHeight(textState,false)
-			this.resetFontSettings()
-			while(textState.index < textState.text.length) {
-				let textUpToIndex = textState.text.substring(0,textState.index)
-				if(this.textWidth(textUpToIndex) > this.contentsWidth() && textUpToIndex.charAt(textState.index) != "\n") {
-					textState.text = textUpToIndex + "\n" + textState.text.substring(textState.index,textState.text.length - 1)
-					console.log("src/WindowCaseInfo.hx:55:",textState.text)
-				}
-				this.processCharacter(textState)
+	drawTextEx(text,x,y,width) {
+		this.resetFontSettings()
+		this.contents.fontSize = LunaCaseFiles.Params.caseFileFontSize
+		let textState = this.createTextState(text,x,y,width)
+		this.processAllText(textState)
+		return textState.outputWidth;
+	}
+	processAllText(textState) {
+		while(textState.index < textState.text.length) {
+			let currentLines = textState.text.substring(0,textState.index + 1).split("\n")
+			let latestLine = currentLines[currentLines.length - 1]
+			let textUpToIndex = latestLine.substring(0,latestLine.length)
+			if(this.textWidth(textUpToIndex) > this.contentsWidth()) {
+				let textWithBreak = textState.text.substring(0,textState.index)
+				textState.text = textWithBreak + "\n" + textState.text.substring(textState.index,textState.text.length)
 			}
-			return textState.x - x;
-		} else {
-			return 0;
+			this.processCharacter(textState)
 		}
+		this.flushTextState(textState)
 	}
 	refresh() {
 		if(this.contents != null) {
@@ -260,7 +271,7 @@ class WindowCaseInfo extends Window_Base {
 		}
 	}
 	paintText() {
-		this.drawTextEx(this._caseText,0,0)
+		this.drawTextEx(this._caseText,0,0,this.contentsWidth())
 	}
 }
 WindowCaseInfo.__name__ = true
@@ -426,4 +437,4 @@ LunaCaseFiles.listener = new PIXI.utils.EventEmitter()
 LunaCaseFiles.main()
 })(typeof exports != "undefined" ? exports : typeof window != "undefined" ? window : typeof self != "undefined" ? self : this, typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this)
 
-//# sourceMappingURL=Luna_CaseFilesMV.js.map
+//# sourceMappingURL=Luna_CaseFilesChaosMode.js.map
