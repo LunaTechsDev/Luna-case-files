@@ -2,7 +2,7 @@
 // Luna_CaseFilesChaosMode.js
 //=============================================================================
 //=============================================================================
-// Build Date: 2020-10-24 16:15:26
+// Build Date: 2020-10-25 13:25:17
 //=============================================================================
 //=============================================================================
 // Made with LunaTea -- Haxe
@@ -160,7 +160,6 @@ class SceneCaseFiles extends Scene_MenuBase {
 		this._caseFileHelpWindow = new Window_Help(helpRect)
 		this._caseFileHelpWindow.contents.textColor = "black"
 		this._caseFileHelpWindow.setBackgroundType(2)
-		this._caseFileHelpWindow.setText("Case Files")
 		this.addWindow(this._caseFileHelpWindow)
 	}
 	createCaseFileInfoWindow() {
