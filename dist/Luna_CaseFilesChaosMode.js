@@ -2,7 +2,7 @@
 // Luna_CaseFilesChaosMode.js
 //=============================================================================
 //=============================================================================
-// Build Date: 2020-10-25 13:25:17
+// Build Date: 2020-11-09 20:17:14
 //=============================================================================
 //=============================================================================
 // Made with LunaTea -- Haxe
@@ -29,7 +29,10 @@
 @help
 ==== How To Use ====
 
-Add <LNCFile> to the item note tag to have it qualify as a case file.
+To use it, use the below notetag in item notebox to qualify that item as a case file.
+<LNCFile>
+ text information
+</LNCFile>
 
 Add the case file note tag to an item in the database to have it appear
 in the case file screen.
