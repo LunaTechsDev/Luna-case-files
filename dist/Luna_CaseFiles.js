@@ -2,7 +2,7 @@
 // Luna_CaseFiles.js
 //=============================================================================
 //=============================================================================
-// Build Date: 2020-11-09 20:17:14
+// Build Date: 2020-12-26 12:39:56
 //=============================================================================
 //=============================================================================
 // Made with LunaTea -- Haxe
@@ -25,6 +25,12 @@
 @text Case File Font Size
 @desc The font size used for the case file information window
 @default 14
+
+@param caseFileText
+@text Case File Text
+@desc The text used in the case file window
+@default Case Files
+
 
 @help
 ==== How To Use ====
@@ -100,7 +106,7 @@ class LunaCaseFiles {
 		}
 		let plugin = _g[0]
 		let string = plugin.parameters["caseFileFontSize"]
-		LunaCaseFiles.Params = { backgroundImageName : plugin.parameters["backgroundImageName"], caseFileFontSize : parseInt(string,10)}
+		LunaCaseFiles.Params = { backgroundImageName : plugin.parameters["backgroundImageName"], caseFileText : plugin.parameters["caseFileText"], caseFileFontSize : parseInt(string,10)}
 	}
 	static params() {
 		return LunaCaseFiles.Params;
@@ -159,7 +165,7 @@ class SceneCaseFiles extends Scene_MenuBase {
 	createCaseFileHelpWindow() {
 		let helpRect = new Rectangle(0,0,Graphics.boxWidth,75)
 		this._caseFileHelpWindow = new Window_Help(helpRect)
-		this._caseFileHelpWindow.setText("Case Files")
+		this._caseFileHelpWindow.setText(LunaCaseFiles.Params.caseFileText)
 		this.addWindow(this._caseFileHelpWindow)
 	}
 	createCaseFileInfoWindow() {
@@ -411,18 +417,6 @@ js_Boot.__name__ = true
 class _$LTGlobals_$ {
 }
 _$LTGlobals_$.__name__ = true
-class utils_Fn {
-	static proto(obj) {
-		return obj.prototype;
-	}
-	static updateProto(obj,fn) {
-		return (fn)(obj.prototype);
-	}
-	static updateEntity(obj,fn) {
-		return (fn)(obj);
-	}
-}
-utils_Fn.__name__ = true
 var $_
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $global.$haxeUID++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = m.bind(o); o.hx__closures__[m.__id__] = f; } return f; }
 $global.$haxeUID |= 0
