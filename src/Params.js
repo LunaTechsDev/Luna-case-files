@@ -15,6 +15,12 @@
 @desc The font size used for the case file information window
 @default 14
 
+@param caseFileText
+@text Case File Text
+@desc The text used in the case file window
+@default Case Files
+
+
 @help
 ==== How To Use ====
 

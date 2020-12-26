@@ -75,7 +75,7 @@ class SceneCaseFiles extends Scene_MenuBase {
     this._caseFileHelpWindow.contents.textColor = 'black';
     this._caseFileHelpWindow.setBackgroundType(2);
     #else
-    this._caseFileHelpWindow.setText('Case Files');
+    this._caseFileHelpWindow.setText(Main.Params.caseFileText);
     #end
 
     this.addWindow(this._caseFileHelpWindow);

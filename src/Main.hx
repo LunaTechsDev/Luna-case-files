@@ -11,6 +11,7 @@ using utils.Fn;
 
 typedef LParams = {
   var backgroundImageName: String;
+  var caseFileText: String;
   var caseFileFontSize: Int;
 }
 
@@ -24,6 +25,7 @@ class Main {
     var plugin = Globals.Plugins.filter((plugin) -> ~/<LunaCaseFiles>/ig.match(plugin.description))[0];
     Params = {
       backgroundImageName: plugin.parameters['backgroundImageName'],
+      caseFileText: plugin.parameters['caseFileText'],
       caseFileFontSize: Fn.parseIntJs(plugin.parameters['caseFileFontSize'])
     }
   }
